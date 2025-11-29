@@ -44,7 +44,8 @@ async def start(update, context):
     keyboard = [
         [InlineKeyboardButton("🧠 Brainrot", callback_data="brainrot")],
         [InlineKeyboardButton("🐉 Adopt Me", callback_data="adoptme")],
-        [InlineKeyboardButton("🎁 Получить Элитного Брейнрота", callback_data="elite_brainrot")]
+        [InlineKeyboardButton("🎁 Получить Элитного Брейнрота", callback_data="elite_brainrot")],
+        [InlineKeyboardButton("🐢 Получить Элитных Петов", callback_data="elite_pets")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
@@ -110,7 +111,8 @@ async def button_callback(update, context):
             keyboard = [
                 [InlineKeyboardButton("🧠 Brainrot", callback_data="brainrot")],
                 [InlineKeyboardButton("🐉 Adopt Me", callback_data="adoptme")],
-                [InlineKeyboardButton("🎁 Получить Элитного Брейнрота", callback_data="elite_brainrot")]
+                [InlineKeyboardButton("🎁 Получить Элитного Брейнрота", callback_data="elite_brainrot")],
+                [InlineKeyboardButton("🐢 Получить Элитных Петов", callback_data="elite_pets")]
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
             
@@ -185,6 +187,24 @@ async def button_callback(update, context):
                     "⚡ *И получи самого мощного брейнрота!* ⚡"
         
         await query.edit_message_text(elite_text, parse_mode='Markdown')
+    
+    elif query.data == "elite_pets":
+        user = query.from_user
+        
+        if not await check_subscription(user.id, context.bot):
+            await query.answer("❌ Сначала подпишись на канал!", show_alert=True)
+            return
+        
+        elite_pets_text = "🐢 *ПОЛУЧИ ЭЛИТНЫХ ПЕТОВ!* 🐢\n\n" + \
+                         "🌟 *Чтобы получить элитных питомцев:*\n\n" + \
+                         "📢 *1. Расскажи друзьям о нашем боте*\n" + \
+                         "👥 *2. Поделись ботом в чатах*\n" + \
+                         "🔄 *3. Отправь ссылку на бота 5 друзьям*\n\n" + \
+                         "✅ *После выполнения всех пунктов:*\n" + \
+                         "💌 *Напиши мне:* @Verywell222\n\n" + \
+                         "🎁 *И получи элитных питомцев: ФР ЧЕРЕПАХУ, ФР ДРАКОНА и других!* 🎁"
+        
+        await query.edit_message_text(elite_pets_text, parse_mode='Markdown')
 
 async def handle_message(update, context):
     user = update.effective_user
@@ -200,7 +220,8 @@ async def handle_message(update, context):
     keyboard = [
         [InlineKeyboardButton("🧠 Brainrot", callback_data="brainrot")],
         [InlineKeyboardButton("🐉 Adopt Me", callback_data="adoptme")],
-        [InlineKeyboardButton("🎁 Получить Элитного Брейнрота", callback_data="elite_brainrot")]
+        [InlineKeyboardButton("🎁 Получить Элитного Брейнрота", callback_data="elite_brainrot")],
+        [InlineKeyboardButton("🐢 Получить Элитных Петов", callback_data="elite_pets")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
